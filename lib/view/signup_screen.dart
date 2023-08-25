@@ -1,19 +1,19 @@
 import 'package:flutter/material.dart';
-import 'package:mvvm/res/components/round_button.dart';
-import 'package:mvvm/utils/utils.dart';
-import 'package:mvvm/view_model/auth_view_model.dart';
 import 'package:provider/provider.dart';
 
+import '../res/components/round_button.dart';
 import '../utils/routes/routes_name.dart';
+import '../utils/utils.dart';
+import '../view_model/auth_view_model.dart';
 
-class LoginScreen extends StatefulWidget {
-  const LoginScreen({super.key});
+class SignupScreen extends StatefulWidget {
+  const SignupScreen({super.key});
 
   @override
-  State<LoginScreen> createState() => _LoginScreenState();
+  State<SignupScreen> createState() => _SignupScreenState();
 }
 
-class _LoginScreenState extends State<LoginScreen> {
+class _SignupScreenState extends State<SignupScreen> {
   ValueNotifier<bool> _obscurePassword = ValueNotifier<bool>(true);
   TextEditingController _emailController = TextEditingController();
   TextEditingController _passwordController = TextEditingController();
@@ -22,11 +22,11 @@ class _LoginScreenState extends State<LoginScreen> {
   FocusNode passwordFocusNode = FocusNode();
   @override
   void dispose() {
+    super.dispose();
     _emailController.dispose();
     _passwordController.dispose();
-    emailFocusNode.dispose();
     passwordFocusNode.dispose();
-    super.dispose();
+    emailFocusNode.dispose();
   }
 
   @override
@@ -36,7 +36,7 @@ class _LoginScreenState extends State<LoginScreen> {
     final height = MediaQuery.of(context).size.height * 1;
     return Scaffold(
       appBar: AppBar(
-        title: const Text("Login"),
+        title: const Text("Signup"),
       ),
       body: Column(
         mainAxisAlignment: MainAxisAlignment.center,
@@ -83,8 +83,8 @@ class _LoginScreenState extends State<LoginScreen> {
             height: height * 0.1,
           ),
           RoundButton(
-              title: "Login",
-              loading: authViewModel.loading,
+              title: "Sign Up",
+              loading: authViewModel.signupLoading,
               onPress: () {
                 if (_emailController.text.isEmpty) {
                   Utils.flushBarErrorMessage("Please enter Email", context);
@@ -97,7 +97,7 @@ class _LoginScreenState extends State<LoginScreen> {
                     'email': _emailController.text.toString(),
                     'password': _passwordController.text.toString(),
                   };
-                  authViewModel.loginApi(data, context);
+                  authViewModel.signupApi(data, context);
                 }
               }),
           SizedBox(
@@ -105,9 +105,9 @@ class _LoginScreenState extends State<LoginScreen> {
           ),
           InkWell(
             onTap: () {
-              Navigator.pushNamed(context, RoutesName.signup);
+              Navigator.pushNamed(context, RoutesName.login);
             },
-            child: Text("Don't have an account  "),
+            child: const Text("Already have an account  "),
           )
         ],
       ),
