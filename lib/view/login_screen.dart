@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:mvvm/res/components/round_button.dart';
 import 'package:mvvm/utils/utils.dart';
@@ -94,10 +95,15 @@ class _LoginScreenState extends State<LoginScreen> {
                       "Please enter 6 digit password", context);
                 } else {
                   Map data = {
-                    'email': _emailController.text.toString(),
-                    'password': _passwordController.text.toString(),
+                    'email':
+                        'eve.holt@reqres.in', //_emailController.text.toString(),
+                    'password':
+                        'cityslicka', //_passwordController.text.toString(),
                   };
                   authViewModel.loginApi(data, context);
+                  if (kDebugMode) {
+                    print('api hit');
+                  }
                 }
               }),
           SizedBox(

@@ -10,8 +10,8 @@ class ApiResponse<T>{
   ApiResponse(this.status,this.data,this.message);
   /// super method overriding 
   ApiResponse.loading() : status = Status.LOADING;
-  ApiResponse.completed() : status = Status.COMPLETED;
-  ApiResponse.error() : status = Status.ERROR;
+  ApiResponse.completed(this.data) : status = Status.COMPLETED;
+  ApiResponse.error(this.message) : status = Status.ERROR;
 
   String toString(){
     return "Status : $status\nMessage : $message\nData : $data";
