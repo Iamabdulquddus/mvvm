@@ -1,10 +1,14 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
+import 'package:mvvm/res/app_url.dart';
 import 'package:provider/provider.dart';
 
 import '../res/components/round_button.dart';
 import '../utils/routes/routes_name.dart';
 import '../utils/utils.dart';
 import '../view_model/auth_view_model.dart';
+import 'package:http/http.dart' as http;
 
 class SignupScreen extends StatefulWidget {
   const SignupScreen({super.key});
@@ -17,6 +21,21 @@ class _SignupScreenState extends State<SignupScreen> {
   ValueNotifier<bool> _obscurePassword = ValueNotifier<bool>(true);
   TextEditingController _emailController = TextEditingController();
   TextEditingController _passwordController = TextEditingController();
+
+  Future registerUser() async {
+    var regBody = {
+      "email": "emailController",
+      "password": "passwordController.text"
+    };
+
+    var response = await http.post(
+      Uri.parse(AppUrl.registerApiEndPoint),
+      headers: {"Content-Type":"application/json"},
+      body: jsonEncode(regBody),
+    );
+    var jsonResponse = jsonDecode(response.body);
+    print(jsonResponse['status']);
+  }
 
   FocusNode emailFocusNode = FocusNode();
   FocusNode passwordFocusNode = FocusNode();
@@ -93,9 +112,10 @@ class _SignupScreenState extends State<SignupScreen> {
                   Utils.flushBarErrorMessage(
                       "Please enter 6 digit password", context);
                 } else {
+                  // registerUser();
                   Map data = {
-                    'email': _emailController.text.toString(),
-                    'password': _passwordController.text.toString(),
+                    'email': "_emailController.text.toString()",
+                    'password': "_passwordController.text.toString()",
                   };
                   authViewModel.signupApi(data, context);
                 }

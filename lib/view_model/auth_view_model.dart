@@ -53,9 +53,16 @@ class AuthViewModel with ChangeNotifier {
 
   Future<void> signupApi(dynamic data, BuildContext context) async {
     setSignupLoading(true);
-    _myRepo.loginApi(data).then((value) {
+    _myRepo.signupApi(data).then((value) {
       setSignupLoading(false);
+      final userPreference = Provider.of<UserViewModel>(context, listen: false);
+          userPreference.saveUser(
+            UserModel(
+              token: value['token'].toString(),
+            ),
+          );
       Utils.flushBarErrorMessage("Signup Successful", context);
+      Navigator.pushNamed(context, RoutesName.home);
       if (kDebugMode) {
         print(value.toString());
       }

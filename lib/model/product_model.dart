@@ -82,7 +82,7 @@ class Products {
     data['brand'] = brand;
     data['category'] = category;
     data['thumbnail'] = thumbnail;
-    data['images'] = images;
+    data['images'] = images; 
     return data;
   }
 }

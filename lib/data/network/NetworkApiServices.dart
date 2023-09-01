@@ -25,9 +25,12 @@ class NetworkApiServices extends BaseApiServices {
   @override
   Future getPostApiResponse(String url, dynamic data) async {
     dynamic responseJson;
+    Map<String, String> requestHeaders = {
+      'Content-Type': 'application/json',
+    };
     try {
       Response response =
-          await post(Uri.parse(url), body: data).timeout(Duration(seconds: 10));
+          await post(Uri.parse(url), body: jsonEncode(data), headers: requestHeaders).timeout(Duration(seconds: 20));
 
       /// check response in dynamic form form returnResponse about the get api response in above line
       responseJson = returnResponse(response);
