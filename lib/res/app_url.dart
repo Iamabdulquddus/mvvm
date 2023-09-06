@@ -4,4 +4,5 @@ class AppUrl {
   static var productBaseUrl = 'https://dummyjson.com';
   static var loginEndPoint = '$baseUrl/login';
   static var productEndPoint = '$productBaseUrl/products';
+  static var notesAddEndPoint = '$baseUrl/storeNotes';
 }

@@ -56,11 +56,11 @@ class AuthViewModel with ChangeNotifier {
     _myRepo.signupApi(data).then((value) {
       setSignupLoading(false);
       final userPreference = Provider.of<UserViewModel>(context, listen: false);
-          userPreference.saveUser(
-            UserModel(
-              token: value['token'].toString(),
-            ),
-          );
+      userPreference.saveUser(
+        UserModel(
+          token: value['token'].toString(),
+        ),
+      );
       Utils.flushBarErrorMessage("Signup Successful", context);
       Navigator.pushNamed(context, RoutesName.home);
       if (kDebugMode) {

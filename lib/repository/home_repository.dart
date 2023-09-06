@@ -6,6 +6,16 @@ import '../res/app_url.dart';
 class HomeRepository{
    BaseApiServices _apiServices =  NetworkApiServices();
 
+   Future<dynamic> notesPostApi(dynamic data) async{
+     try{
+       dynamic response = await _apiServices.getPostApiResponse(AppUrl.notesAddEndPoint, data);
+       return response;
+
+     }catch(e){
+       throw e;
+     }
+   }
+
   Future<ProductModel> fetchProductList() async{
     try{
       dynamic response = await _apiServices.getGetApiResponse(AppUrl.productEndPoint);
